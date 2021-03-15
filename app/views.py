@@ -18,13 +18,24 @@ def image_upload_view(request):
 
 def viewPhotos(request):
     Posts = Post.objects.all()  
-    return render(request, 'app/viewPhotos.html', {'posts' : Posts, 'full': True})
+    return render(request, 'app/viewPhotos.html', {'posts' : Posts})
 
 def edit(request, name):
     if request.method == "POST":
-        newName = request.POST['name']
-        form = request.GET.get('name', newName)
-        Posts = Post.objects.all()
-        Posts.filter(name = name).update(name=form)
-        return render(request, 'app/viewPhotos.html', {'posts': Posts})
-    return render(request, 'app/edit.html', {'name': name})
+        # Requesting Data
+        form = Form(request.POST, request.FILES)
+        # Data Analyzing 
+        if form.is_valid():
+            newName = request.POST['name']
+            newImage= form.instance
+            # Update Name
+            updateName = request.GET.get('name', newName)
+            Posts = Post.objects.all()
+            #Update Feilds 
+            print(newImage.img.name)
+            Posts.filter(name = name).update(name=updateName)
+            Posts.filter(name = name).update(img = "images/" + newImage.img.name)
+            return redirect('/view', {'posts': Posts})
+    else:
+        form = Form()
+    return render(request, 'app/edit.html', {'name': name, 'form': form})
