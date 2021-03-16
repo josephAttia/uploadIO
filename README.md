@@ -17,7 +17,6 @@ pip install pillow
 1) 
 ```bash
 git clone https://github.com/josephAttia/uploadIO.git
-git init 
 ```
 2)
 ```
