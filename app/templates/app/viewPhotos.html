@@ -4,11 +4,16 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <h5 style="text-align: center;">Your Uploads</h5>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/upload">Upload More</a>
+                </li>
+            </ul>
         </a>
       </div>
     </nav>
 
-<a href="/upload">Upload More</a>
+
 
 <div class="row row-cols-1 row-cols-md-2 g-4">
 {% for post in posts %} 
@@ -27,6 +32,9 @@
 </div>
 
 <style>
+*{
+        overflow-x: hidden;
+    }
     .image{
         margin-left: 150px;
         width: 400px;

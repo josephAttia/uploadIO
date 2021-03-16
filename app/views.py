@@ -26,15 +26,18 @@ def edit(request, name):
         form = Form(request.POST, request.FILES)
         # Data Analyzing 
         if form.is_valid():
-            newName = request.POST['name']
-            newImage= form.instance
-            # Update Name
-            updateName = request.GET.get('name', newName)
+            # newName = request.POST['name']
+            # newImage= form.instance
+            # # Update Name
+            # updateName = request.GET.get('name', newName)
             Posts = Post.objects.all()
-            #Update Feilds 
-            print(newImage.img.name)
-            Posts.filter(name = name).update(name=updateName)
-            Posts.filter(name = name).update(img = "images/" + newImage.img.name)
+            data = Posts.get(name=name)
+            data.delete()
+            # #Update Feilds 
+            # print(newImage.img.name)
+            # Posts.filter(name = name).update(name=updateName)
+            # Posts.filter(name = name).update(img = "images/" + newImage.img.name)
+            form.save()
             return redirect('/view', {'posts': Posts})
     else:
         form = Form()
